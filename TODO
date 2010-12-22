@@ -1,0 +1,34 @@
++ Normal menu :)
++   File
++       Open
+-        Reopen [--> files list]
+-        Open fresh (opens last file with mask "report*.json" from the directory where the last opened file was)
++   Help
++       Keys
++       About
++ Keybindings window on startup
++ Clicking bar highlights usages in it
+-   and selects corresponding tree node (but does not refocus bar view)
+-   and shows somewhere, how much time does it occupy in total (same as 'total' for corresponding source line)
+- F3 cycles between usages
+- F4 works also in bar
+
+---- First release ----
+
+- Launch and profile ant script directly from ui
+- Highlight usages also highlights them in bar
+- 'min','max','first' cells are clickable and lead to corresponding stacktrace selected in tree
+- Modes chooser up tree
+- Buttons up tree: Expand all, Collapse all
+- Inline incremental search in tree (Ctrl-F)
+- Same in source (Ctrl-F)
+
+---- Second release ----
+
+- Report (min,max,first,total,count)
+    by task name
+    by target name
+    by file
+- Report diff (?)
+
+---- Third release ----

@@ -1,0 +1,2 @@
+Main-Class: ru.jkff.antro.ui.Main
+Class-Path: lib/ant.jar lib/swingx-2008_03_09.jar
