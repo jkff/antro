@@ -181,9 +181,8 @@ public class ProfileListener implements SubBuildListener {
                 JSONArray data = new JSONArray();
                 data.put(res);
                 data.put(toJSON(report.getTrace()));
-                data.writeSelfTo(2, 0, w);
+                w.write(data.toString(2));
                 w.write("\n)\n");
-
                 w.close();
             }
         } catch (JSONException e) {
