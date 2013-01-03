@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="antro" default="all">
     <target name="all" depends="clean, compile, jar, make-dist"/>
+	
+	<target name="clean-build-jar" depends="clean, jar"/>
 
     <target name="set-properties">
         <property file="antro.properties"/>
@@ -14,12 +16,17 @@
 
     <target name="compile" depends="set-properties">
         <mkdir dir="${classes.dir}"/>
-        <javac srcdir="${src.dir}"
-               destdir="${classes.dir}"
-               includes="**/*.java">
-            <classpath>
-                <fileset dir="${lib.dir}" includes="**/*.jar"/>
-            </classpath>
+        <javac 	srcdir="${src.dir}"
+				destdir="${classes.dir}"
+				includes="**/*.java"
+				debug="true"
+				debuglevel="lines,vars,source"
+               	optimize="off"
+				fork="yes">
+			   
+				<classpath>
+					<fileset dir="${lib.dir}" includes="**/*.jar"/>
+				</classpath>
         </javac>
     </target>
 

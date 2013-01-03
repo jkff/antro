@@ -39,7 +39,7 @@ public class UI extends JFrame {
     private LineView lineView;
 
     public UI() {
-        super("Ant profiler");
+        super("Antro");
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 

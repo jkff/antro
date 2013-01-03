@@ -25,9 +25,6 @@ package ru.jkff.antro.ui;
  */
 public class Main {
     public static void main(String[] args) throws Exception {
-//        Report report = new ReportReader().readReport("c:\\report-12-2-2008_11-52-37.json");
-//
-//        new UI().load(report);
         new UI();
     }
 }

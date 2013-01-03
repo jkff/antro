@@ -177,13 +177,10 @@ public class ProfileListener implements SubBuildListener {
 
             if(!dontWriteFile) {
                 FileWriter w = new FileWriter(reportFilename);
-                w.write("(\n");
                 JSONArray data = new JSONArray();
                 data.put(res);
                 data.put(toJSON(report.getTrace()));
-                data.writeSelfTo(2, 0, w);
-                w.write("\n)\n");
-
+                w.write(data.toString(2));
                 w.close();
             }
         } catch (JSONException e) {

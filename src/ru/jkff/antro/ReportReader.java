@@ -22,6 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
@@ -33,6 +34,8 @@ import java.util.*;
  * @author jkff
  */
 public class ReportReader {
+    private static  final  int REPORT_FILE_BUFFER_SIZE = 10 * 1024 * 1024;
+
     public Report readReport(String filename) throws IOException {
         // function getProfileData() {
         // return (
@@ -45,14 +48,14 @@ public class ReportReader {
         // )
         // }
         try {
-            LineNumberReader r = new LineNumberReader(new FileReader(filename));
+            LineNumberReader r = new LineNumberReader(new BufferedReader(new FileReader(filename), REPORT_FILE_BUFFER_SIZE));
             StringBuilder sb = new StringBuilder();
             String line;
             while (null != (line = r.readLine())) {
                 sb.append(line);
             }
 
-            JSONArray data = new JSONArray(sb.toString()).getJSONArray(0);
+            JSONArray data = new JSONArray(sb.toString());
 
             JSONArray profileData = data.getJSONArray(0);
             JSONObject traceData = data.getJSONObject(1);
