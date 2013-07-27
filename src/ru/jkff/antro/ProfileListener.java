@@ -23,10 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.LineNumberReader;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -146,15 +143,25 @@ public class ProfileListener implements SubBuildListener {
         SimpleDateFormat ISO8601FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH_mm_ss");
         String dateString = ISO8601FORMAT.format(new Date());
 
-        String dir = project.getProperty("antro.dir");
-        if (dir == null || "".equals(dir))
-            dir = project.getUserProperty("antro.dir");
-        if (dir == null || "".equals(dir))
-            dir = ".";
-        return dir + "/antro-report-" + dateString + ".json";
+        String dir = getProperty("antro.dir", ".");
+
+        String name = getProperty("antro.filename", "antro-report-" + dateString + ".json");
+
+        return dir + "/" + name;
     }
 
-    public void dumpReport(Report report, String reportFilename) {
+    public void dumpReport(Report report, String suggestedReportFilename) {
+        String reportFilename = suggestedReportFilename;
+
+        String overwrite = getProperty("antro.overwrite", "false");
+        boolean shouldOverwrite = Boolean.parseBoolean(overwrite);
+
+        if (!shouldOverwrite) {
+            int nameIndex = 1;
+            while (new File(reportFilename).exists())
+                reportFilename = suggestedReportFilename + "." + nameIndex++;
+        }
+
         try {
             JSONArray res = new JSONArray();
 
@@ -188,6 +195,16 @@ public class ProfileListener implements SubBuildListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private String getProperty(String name, String defaultValue) {
+        String result = project.getProperty(name);
+        if (result != null && !("".equals(result)))
+            return result;
+
+        result = project.getUserProperty(name);
+
+        return (result == null || "".equals(result)) ? defaultValue : result;
     }
 
     private JSONObject annotateLine(String line, int lineNumber, Stat s) throws JSONException {
